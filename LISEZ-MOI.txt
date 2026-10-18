@@ -1,0 +1,9 @@
+VALYDIUM LAUNCHER — VERSION 1.2.0
+
+Si Minecraft Launcher est détecté, VALYDIUM le démarre automatiquement.
+S’il n’est pas détecté, une fenêtre s’ouvre pour te laisser choisir MinecraftLauncher.exe (ou Minecraft.exe selon l’installation). Le chemin choisi est mémorisé pour les prochaines fois.
+
+Serveur cible : join1.severoo.com:55230
+Important : cette version ouvre le Launcher Minecraft officiel, mais ne garantit pas de rejoindre le serveur automatiquement. La connexion Microsoft reste gérée par Microsoft.
+
+Pour créer l’installateur, envoie le contenu du dossier sur GitHub et lance le workflow Build Windows dans l’onglet Actions.

@@ -1,0 +1,38 @@
+{
+  "name": "valydium-launcher",
+  "version": "1.2.0",
+  "description": "VALYDIUM launcher with automatic detection and manual Minecraft Launcher selection",
+  "main": "main.js",
+  "author": "VALYDIUM",
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win nsis"
+  },
+  "devDependencies": {
+    "electron": "^34.0.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "fr.valydium.launcher",
+    "productName": "VALYDIUM Launcher",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "index.html",
+      "preload.js",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  }
+}
