@@ -1,0 +1,39 @@
+name: Build Windows
+
+on:
+  workflow_dispatch:
+  push:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+    env:
+      CSC_IDENTITY_AUTO_DISCOVERY: "false"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Trouver package.json
+        id: find
+        shell: pwsh
+        run: |
+          $pkg = Get-ChildItem -Recurse -Filter package.json | Where-Object { $_.FullName -notmatch 'node_modules' } | Select-Object -First 1
+          if (-not $pkg) { Write-Error "package.json introuvable"; exit 1 }
+          $d = $pkg.DirectoryName -replace '\\','/'
+          "dir=$d" >> $env:GITHUB_OUTPUT
+          Get-ChildItem $pkg.DirectoryName
+      - name: Installer les dependances
+        working-directory: ${{ steps.find.outputs.dir }}
+        run: npm install
+      - name: Construire l installateur
+        working-directory: ${{ steps.find.outputs.dir }}
+        run: npx electron-builder --win nsis --publish never
+      - uses: actions/upload-artifact@v4
+        with:
+          name: VALYDIUM-Windows-Installer
+          path: ${{ steps.find.outputs.dir }}/dist/*.exe
+          if-no-files-found: error
